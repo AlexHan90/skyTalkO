@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.two.sky.mybatis.member.MemberMapper">
+	<resultMap type="com.two.sky.member.dto.MemberDTO" 
+												id="member">
+		<result property="sessionId" column="session_id"/>
+		<result property="limitTime" column="limit_time"/>
+	</resultMap>
+	
+	
+	<select id="logChk" resultMap="member">
+		select * from membership where id=#{id}
+	</select>
+	<select id="memberInfo" resultMap="member">
+		select * from membership
+	</select>
+	<insert id="register">
+		insert into membership(id,pw,addr) 
+						values(#{id},#{pw},#{addr})	
+	</insert>
+	<update id="keepLogin">
+		update membership set session_id=#{s}, 
+					limit_time=#{d} where id=#{id}	
+	</update>
+<select id="getSessionId" resultMap="member">
+	select * from membership where session_id=#{s_id}
+</select>
+<select id="idChk" resultType="int">
+	select count(*) from membership where id=#{id}
+</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
